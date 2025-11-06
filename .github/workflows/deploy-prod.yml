@@ -34,4 +34,5 @@ jobs:
         run: |
           echo "🚀 Deploying to PROD..."
           cd dabproject
-          databricks bundle deploy --target prod
+          databricks bundle deploy --target prod --auto-approve
+      
