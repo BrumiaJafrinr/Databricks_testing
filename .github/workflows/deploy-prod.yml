@@ -17,20 +17,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.10'
 
-      - name: Install Databricks CLI (unified)
+      - name: Install Databricks CLI (unified version)
         run: |
           python -m pip install --upgrade pip
-          python -m pip install databricks
+          python -m pip install --user databricks
           echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
+          echo "✅ Databricks CLI installed at $(python -m site --user-base)/bin"
 
       - name: Verify Databricks CLI
         run: |
-          which databricks
+          echo "PATH: $PATH"
+          ls -l $(python -m site --user-base)/bin
           databricks version
 
       - name: Validate Databricks bundle
