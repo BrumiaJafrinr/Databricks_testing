@@ -17,19 +17,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Databricks CLI (unified, bundle-supported)
+      - name: Install Databricks CLI (official unified version)
         run: |
           echo "⚙️ Installing Databricks CLI..."
-          curl -fsSL https://databricks.com/install.sh | bash
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
           echo "/usr/local/bin" >> $GITHUB_PATH
           databricks version
 
-      - name: Validate Bundle
+      - name: Validate Databricks Bundle
         run: |
-          echo "🧩 Validating Databricks bundle..."
+          echo "🧩 Validating bundle..."
           databricks bundle validate
 
       - name: Deploy Bundle to PROD
         run: |
-          echo "🚀 Deploying Databricks bundle to PROD..."
+          echo "🚀 Deploying to PROD..."
           databricks bundle deploy --target prod
