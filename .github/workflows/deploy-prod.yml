@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy-bundle:
     runs-on: ubuntu-latest
 
     env:
@@ -14,26 +14,22 @@ jobs:
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install new Databricks CLI (bundle-supported)
+      - name: Install Databricks CLI (unified, bundle-supported)
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install databricks-sdk
-          echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
+          echo "⚙️ Installing Databricks CLI..."
+          curl -fsSL https://databricks.com/install.sh | bash
           echo "/usr/local/bin" >> $GITHUB_PATH
-
-      - name: Check CLI version
-        run: |
           databricks version
 
-      - name: Validate & Deploy Bundle to PROD
+      - name: Validate Bundle
         run: |
+          echo "🧩 Validating Databricks bundle..."
           databricks bundle validate
+
+      - name: Deploy Bundle to PROD
+        run: |
+          echo "🚀 Deploying Databricks bundle to PROD..."
           databricks bundle deploy --target prod
