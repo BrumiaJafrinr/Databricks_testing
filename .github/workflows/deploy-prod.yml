@@ -17,13 +17,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Databricks CLI (bundle-supported)
+      # ✅ Install pipx and Databricks CLI (bundle-supported)
+      - name: Install Databricks CLI using pipx
         run: |
-          pip install --upgrade databricks
+          python3 -m pip install --user pipx
+          python3 -m pipx ensurepath
+          pipx install databricks
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Verify Databricks CLI version
         run: |
+          which databricks
           databricks version
 
       - name: Validate Databricks bundle
@@ -33,4 +37,3 @@ jobs:
       - name: Deploy Databricks bundle to PROD
         run: |
           databricks bundle deploy --target prod
-
