@@ -25,6 +25,9 @@ targets:
 
   prod:
     mode: production
+    presets:
+      name_prefix: prod_${workspace.current_user.short_name}
+      source_linked_deployment: false
     workspace:
       host: https://dbc-7fcc055b-96dc.cloud.databricks.com
       # We explicitly deploy to /Workspace/Users/brumiajaffrin@gmail.com to make sure we only have a single copy.
