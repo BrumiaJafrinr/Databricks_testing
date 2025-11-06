@@ -1,33 +1,29 @@
 name: Deploy Databricks Bundle to PROD
-
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  deploy-to-prod:
+  deploy:
     runs-on: ubuntu-latest
-
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install Databricks CLI (new unified version)
+      # 👇 install the new CLI (this is the piece your runner is missing)
+      - name: Install Databricks CLI
         run: |
           python -m pip install --upgrade pip
-          sudo python -m pip install databricks
+          python -m pip install databricks
+          echo "$(python -m site --user-base)/bin" >> $GITHUB_PATH
+          echo "/usr/local/bin" >> $GITHUB_PATH
 
-      - name: Validate and Deploy Databricks Bundle to PROD
+      - name: Deploy bundle
         run: |
           databricks bundle validate
           databricks bundle deploy --target prod
