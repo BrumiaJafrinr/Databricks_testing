@@ -17,9 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install new Databricks CLI (bundle-supported)
+      - name: Install Databricks CLI (bundle-supported)
         run: |
           pip install --upgrade databricks
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Verify Databricks CLI version
         run: |
@@ -32,3 +33,4 @@ jobs:
       - name: Deploy Databricks bundle to PROD
         run: |
           databricks bundle deploy --target prod
+
