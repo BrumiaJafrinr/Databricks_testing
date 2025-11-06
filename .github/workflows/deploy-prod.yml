@@ -1,0 +1,34 @@
+name: Deploy Databricks Bundle to PROD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-to-prod:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        run: |
+          pip install databricks-cli
+
+      - name: Validate Databricks bundle
+        run: |
+          databricks bundle validate
+
+      - name: Deploy Databricks bundle to PROD
+        run: |
+          databricks bundle deploy --target prod
+
+#      - name: Run Databricks bundle (optional)
+#        run: |
+#          databricks bundle run -t prod || echo "No run defined in bundle."
