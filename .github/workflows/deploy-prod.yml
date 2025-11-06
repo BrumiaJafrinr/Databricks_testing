@@ -17,9 +17,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Databricks CLI
+      - name: Install new Databricks CLI (bundle-supported)
         run: |
-          pip install databricks-cli
+          pip install --upgrade databricks
+
+      - name: Verify Databricks CLI version
+        run: |
+          databricks version
 
       - name: Validate Databricks bundle
         run: |
@@ -28,7 +32,3 @@ jobs:
       - name: Deploy Databricks bundle to PROD
         run: |
           databricks bundle deploy --target prod
-
-#      - name: Run Databricks bundle (optional)
-#        run: |
-#          databricks bundle run -t prod || echo "No run defined in bundle."
