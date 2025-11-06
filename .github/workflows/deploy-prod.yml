@@ -27,9 +27,11 @@ jobs:
       - name: Validate Databricks Bundle
         run: |
           echo "🧩 Validating bundle..."
+          cd dabproject
           databricks bundle validate
 
       - name: Deploy Bundle to PROD
         run: |
           echo "🚀 Deploying to PROD..."
+          cd dabproject
           databricks bundle deploy --target prod
