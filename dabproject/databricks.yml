@@ -25,10 +25,10 @@ targets:
   dev_shared:
     mode: production
     presets:
-      name_prefix: DEV_SHARED
+      name_prefix: dev_shared2
     workspace:
       host: https://dbc-7fcc055b-96dc.cloud.databricks.com
-      root_path: /Workspace/Users/brumiajaffrin@gmail.com/dev_shared_latest/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/brumiajaffrin@gmail.com/dev_shared_4/.bundle/${bundle.name}/${bundle.target}
 
 
   prod:
