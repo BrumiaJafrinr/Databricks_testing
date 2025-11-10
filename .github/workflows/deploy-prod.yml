@@ -19,20 +19,20 @@ jobs:
 
       - name: Install Databricks CLI (official unified version)
         run: |
-          echo "⚙️ Installing Databricks CLI..."
+          echo "Installing Databricks CLI..."
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
           echo "/usr/local/bin" >> $GITHUB_PATH
           databricks version
 
       - name: Validate Databricks Bundle
         run: |
-          echo "🧩 Validating bundle..."
+          echo "Validating bundle..."
           cd dabproject
-          databricks bundle validate
+          databricks bundle validate --target prod
 
       - name: Deploy Bundle to PROD
         run: |
-          echo "🚀 Deploying to PROD..."
+          echo "Deploying to PROD..."
           cd dabproject
           databricks bundle deploy --target prod --auto-approve
       
