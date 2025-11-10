@@ -28,8 +28,7 @@ targets:
       name_prefix: dev_shared
     workspace:
       host: https://dbc-7fcc055b-96dc.cloud.databricks.com
-      root_path: /Workspace/Users/brumiajaffrin@gmail.com/dev_shared/.bundle/${bundle.name}/${bundle.target}
-
+      root_path: /Workspace/Users/brumiajaffrin@gmail.com/dev_shared_latest/.bundle/${bundle.name}/${bundle.target}
 
   prod:
     mode: production
