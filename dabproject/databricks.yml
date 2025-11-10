@@ -22,14 +22,23 @@ targets:
     workspace:
       host: https://dbc-7fcc055b-96dc.cloud.databricks.com
 
+  dev_shared:
+    mode: production
+    presets:
+      name_prefix: DEV_SHARED
+    workspace:
+      host: https://dbc-7fcc055b-96dc.cloud.databricks.com
+      root_path: /Workspace/Users/brumiajaffrin@gmail.com/dev_shared/.bundle/${bundle.name}/${bundle.target}
+
+
   prod:
     mode: production
     presets:
-      name_prefix: prod2_${workspace.current_user.short_name}
+      name_prefix: prod_${workspace.current_user.short_name}
     workspace:
       host: https://dbc-7fcc055b-96dc.cloud.databricks.com
       # We explicitly deploy to /Workspace/Users/brumiajaffrin@gmail.com to make sure we only have a single copy.
-      root_path: /Workspace/Users/brumiajaffrin@gmail.com/PROD2/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/brumiajaffrin@gmail.com/PROD/.bundle/${bundle.name}/${bundle.target}
     permissions:
       - user_name: brumiajaffrin@gmail.com
         level: CAN_MANAGE
