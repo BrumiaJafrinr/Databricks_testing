@@ -1,0 +1,20 @@
+# The main pipeline for dabproject0911
+
+resources:
+  pipelines:
+    dabproject0911_etl:
+      name: dabproject0911_etl
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      root_path: "../src/dabproject0911_etl"
+
+      libraries:
+        - glob:
+            include: ../src/dabproject0911_etl/transformations/**
+
+      environment:
+        dependencies:
+          # We include every dependency defined by pyproject.toml by defining an editable environment
+          # that points to the folder where pyproject.toml is deployed.
+          - --editable ${workspace.file_path}
