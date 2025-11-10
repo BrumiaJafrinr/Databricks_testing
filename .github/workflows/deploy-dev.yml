@@ -1,0 +1,37 @@
+name: Deploy Databricks Bundle to DEV
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy-bundle-dev:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI (Unified)
+        run: |
+          echo "⚙️ Installing Databricks CLI..."
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+          echo "/usr/local/bin" >> $GITHUB_PATH
+          databricks version
+
+      - name: Validate Databricks Bundle
+        run: |
+          echo "🧩 Validating bundle..."
+          cd dabproject
+          databricks bundle validate
+
+      - name: Deploy Bundle to DEV
+        run: |
+          echo "🚀 Deploying to DEV..."
+          cd dabproject
+          databricks bundle deploy --target dev_shared --auto-approve
