@@ -27,11 +27,11 @@ jobs:
       - name: Validate Databricks Bundle
         run: |
           echo "🧩 Validating bundle..."
-          cd dabproject
+          cd dabproject0911
           databricks bundle validate
 
       - name: Deploy Bundle to DEV
         run: |
           echo "🚀 Deploying to DEV..."
-          cd dabproject
+          cd dabproject0911
           databricks bundle deploy --target dev_shared --auto-approve
