@@ -3,7 +3,7 @@ name: Deploy Databricks Bundle to DEV
 on:
   push:
     branches:
-      - hyu
+      - hyuh
 
 jobs:
   deploy-bundle-dev:
